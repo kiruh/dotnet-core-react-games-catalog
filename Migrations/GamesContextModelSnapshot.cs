@@ -24,13 +24,13 @@ namespace Distributed.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("GenreId");
+                    b.Property<int?>("GenreId");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(200);
 
-                    b.Property<int>("RatingId");
+                    b.Property<int?>("RatingId");
 
                     b.Property<string>("ReleaseYear")
                         .IsRequired();
@@ -251,13 +251,6 @@ namespace Distributed.Migrations
                     b.Property<string>("LastName")
                         .IsRequired();
 
-                    b.Property<string>("Login")
-                        .IsRequired();
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
                     b.ToTable("User");
 
                     b.HasDiscriminator().HasValue("User");
@@ -267,13 +260,11 @@ namespace Distributed.Migrations
                 {
                     b.HasOne("Distributed.Models.Genre", "Genre")
                         .WithMany()
-                        .HasForeignKey("GenreId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("GenreId");
 
                     b.HasOne("Distributed.Models.Rating", "Rating")
                         .WithMany()
-                        .HasForeignKey("RatingId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("RatingId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

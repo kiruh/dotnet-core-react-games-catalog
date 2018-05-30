@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 
 namespace Distributed.Models
@@ -10,10 +6,12 @@ namespace Distributed.Models
     public class User : IdentityUser
     {
         [Required]
+        [MinLength(1)]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
         [Required]
+        [MinLength(1)]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
 

@@ -28,8 +28,6 @@ namespace Distributed.Migrations
                 {
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    Login = table.Column<string>(nullable: true),
-                    Password = table.Column<string>(maxLength: 255, nullable: true),
                     Id = table.Column<string>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
@@ -192,9 +190,9 @@ namespace Distributed.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
-                    GenreId = table.Column<int>(nullable: false),
+                    GenreId = table.Column<int>(nullable: true),
                     Name = table.Column<string>(maxLength: 200, nullable: false),
-                    RatingId = table.Column<int>(nullable: false),
+                    RatingId = table.Column<int>(nullable: true),
                     ReleaseYear = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
@@ -205,13 +203,13 @@ namespace Distributed.Migrations
                         column: x => x.GenreId,
                         principalTable: "Genre",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Game_Rating_RatingId",
                         column: x => x.RatingId,
                         principalTable: "Rating",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
