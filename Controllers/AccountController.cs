@@ -18,14 +18,14 @@ namespace Distributed.Controllers
     [Route("api/[controller]/[action]")]
     public class AccountController : Controller
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
         private readonly IConfiguration _configuration;
         private readonly GamesContext _context;
 
         public AccountController(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
+            UserManager<User> userManager,
+            SignInManager<User> signInManager,
             IConfiguration configuration,
             GamesContext context
             )
@@ -84,7 +84,7 @@ namespace Distributed.Controllers
             return "Protected area";
         }
 
-        private string GenerateJwtToken(string email, IdentityUser user)
+        private string GenerateJwtToken(string email, User user)
         {
             var claims = new List<Claim>
             {
