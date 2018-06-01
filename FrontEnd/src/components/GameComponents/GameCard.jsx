@@ -32,9 +32,12 @@ class GameCard extends React.Component {
 	}
 
 	renderHeader() {
-		const { game } = this.props;
+		const { game, disabledControls } = this.props;
 		const { name } = game;
-		return <div className="card-header">{name}</div>;
+
+		const bg = disabledControls ? "bg-dark" : "";
+
+		return <div className={`card-header ${bg}`}>{name}</div>;
 	}
 
 	renderEditButton() {

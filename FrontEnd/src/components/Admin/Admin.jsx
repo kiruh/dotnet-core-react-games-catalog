@@ -1,58 +1,21 @@
-/* eslint-env browser */
 import React from "react";
-import axios from "axios";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
 import Menu from "./Menu";
 import Content from "./Content";
 import NotFoundPage from "../NotFoundPage";
-import { getToken, getHeaders } from "~/utils";
 
 class Admin extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = this.getInitialState();
-	}
-
-	getInitialState() {
-		return {
-			isAdmin: null,
-		};
-	}
-
-	componentDidMount() {
-		if (getToken()) {
-			this.lastTokenChecked = getToken();
-			this.checkPermissions();
-		}
-	}
-
-	componentDidUpdate() {
-		if (this.lastTokenChecked !== getToken()) {
-			this.lastTokenChecked = getToken();
-			this.checkPermissions();
-		}
-	}
-
-	async checkPermissions() {
-		try {
-			await axios.get("/api/account/protected", {
-				headers: getHeaders(),
-			});
-			this.setState({ isAdmin: true });
-		} catch (error) {
-			this.setState({ isAdmin: false });
-		}
-	}
-
 	render() {
-		if (!getToken()) return <Redirect to="/login" push />;
+		const { fetchingUser, user } = this.props;
 
-		if (this.state.isAdmin === null) {
-			return null;
-		}
+		if (fetchingUser) return null;
 
-		if (!this.state.isAdmin) {
+		if (!user) return <Redirect to="/login" push />;
+
+		if (!user.isAdmin) {
 			return <NotFoundPage />;
 		}
 
@@ -67,4 +30,14 @@ class Admin extends React.Component {
 	}
 }
 
-export default Admin;
+Admin.propTypes = {
+	user: PropTypes.objectOf(PropTypes.any),
+	fetchingUser: PropTypes.bool,
+};
+
+const mapStateToProps = state => ({
+	user: state.user,
+	fetchingUser: state.fetchingUser,
+});
+
+export default connect(mapStateToProps)(Admin);

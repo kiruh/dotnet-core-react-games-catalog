@@ -1,57 +1,13 @@
-/* eslint-env browser */
 import React from "react";
-import axios from "axios";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { Link, withRouter, NavLink } from "react-router-dom";
 
-import { getHeaders, getToken } from "~/utils";
-import { TOKEN_STORAGE_KEY } from "~/constants";
+import { logout } from "~/actions/controller";
 
 class Navbar extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			fetching: true,
-			user: null,
-		};
-		this.lastTokenChecked = getToken();
-	}
-
-	componentDidMount() {
-		this.fetchUser();
-	}
-
-	componentDidUpdate() {
-		if (this.lastTokenChecked !== getToken()) {
-			this.lastTokenChecked = getToken();
-			this.fetchUser();
-		}
-	}
-
-	async fetchUser() {
-		if (!getToken()) {
-			this.setState({ user: null, fetching: false });
-		}
-		try {
-			const response = await axios.get("/api/account/getuser", {
-				headers: getHeaders(),
-			});
-			const user = response.data;
-			this.setState({ user, fetching: false });
-		} catch (error) {
-			this.setState({ fetching: false });
-		}
-	}
-
-	async logout() {
-		localStorage.removeItem(TOKEN_STORAGE_KEY);
-		this.lastTokenChecked = getToken();
-		await this.fetchUser();
-		this.props.onLogout();
-	}
-
 	renderLoginLink() {
-		if (this.state.user) return null;
+		if (this.props.user) return null;
 		return (
 			<li className="nav-item">
 				<NavLink
@@ -66,14 +22,30 @@ class Navbar extends React.Component {
 		);
 	}
 
+	renderRegisterLink() {
+		if (this.props.user) return null;
+		return (
+			<li className="nav-item">
+				<NavLink
+					exact
+					to="/register"
+					className="btn btn-link nav-link"
+					activeClassName="active"
+				>
+					Register
+				</NavLink>
+			</li>
+		);
+	}
+
 	renderLogoutLink() {
-		if (!this.state.user) return null;
+		if (!this.props.user) return null;
 		return (
 			<li className="nav-item">
 				<button
 					className="btn btn-link nav-link"
 					onClick={() => {
-						this.logout();
+						logout();
 					}}
 				>
 					Logout
@@ -83,8 +55,8 @@ class Navbar extends React.Component {
 	}
 
 	renderAdminLink() {
-		if (!this.state.user) return null;
-		if (!this.state.user.isAdmin) return null;
+		if (!this.props.user) return null;
+		if (!this.props.user.isAdmin) return null;
 		return (
 			<li className="nav-item">
 				<NavLink
@@ -99,22 +71,23 @@ class Navbar extends React.Component {
 	}
 
 	renderUserName() {
-		if (!this.state.user) return null;
+		if (!this.props.user) return null;
 		return (
 			<li className="nav-item">
 				<div className="nav-link text-white">
-					Logged in as <strong>{this.state.user.fullName}</strong>
+					Logged in as <strong>{this.props.user.fullName}</strong>
 				</div>
 			</li>
 		);
 	}
 
 	renderContent() {
-		if (this.state.fetching) return null;
+		if (this.props.fetchingUser) return null;
 		return (
 			<ul className="navbar-nav mr-auto">
 				{this.renderUserName()}
 				{this.renderLoginLink()}
+				{this.renderRegisterLink()}
 				{this.renderLogoutLink()}
 				{this.renderAdminLink()}
 			</ul>
@@ -148,7 +121,13 @@ class Navbar extends React.Component {
 }
 
 Navbar.propTypes = {
-	onLogout: PropTypes.func.isRequired,
+	user: PropTypes.objectOf(PropTypes.any),
+	fetchingUser: PropTypes.bool,
 };
 
-export default withRouter(Navbar);
+const mapStateToProps = state => ({
+	user: state.user,
+	fetchingUser: state.fetchingUser,
+});
+
+export default connect(mapStateToProps, null)(withRouter(Navbar));

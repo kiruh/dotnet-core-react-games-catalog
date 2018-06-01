@@ -1,12 +1,17 @@
-/* eslint-env browser */
 import React from "react";
-import axios from "axios";
 import { withRouter } from "react-router-dom";
-import { connect } from "react-redux";
 
-import { TOKEN_STORAGE_KEY } from "~/constants";
+import { login } from "~/actions/controller";
 
 class Login extends React.Component {
+	static renderAcceptButton() {
+		return (
+			<button className="btn btn-primary float-right" type="submit">
+				Login
+			</button>
+		);
+	}
+
 	constructor(props) {
 		super(props);
 		this.state = this.getInitialState();
@@ -55,22 +60,11 @@ class Login extends React.Component {
 	async tryToLogin() {
 		const { password, email } = this.state;
 		try {
-			const response = await axios.post("/api/account/login/", {
-				email,
-				password,
-			});
-			const { token } = response.data;
-
-			localStorage.setItem(TOKEN_STORAGE_KEY, token);
+			await login({ email, password });
 			if (!this.mounted) return;
 
-			const { history, initialHistoryLength } = this.props;
-
-			if (history.length === initialHistoryLength) {
-				history.push("/");
-			} else {
-				history.goBack();
-			}
+			const { history } = this.props;
+			history.push("/");
 		} catch (error) {
 			if (!this.mounted) return;
 
@@ -107,25 +101,28 @@ class Login extends React.Component {
 		);
 	}
 
-	renderAcceptButton() {
-		return (
-			<button
-				className="btn btn-primary float-right"
-				onClick={() => {
-					this.onAcceptForm();
-				}}
-			>
-				Login
-			</button>
-		);
-	}
-
 	renderError() {
 		if (!this.state.errors.credentials) return null;
 		return (
 			<div className="invalid-feedback" style={{ display: "block" }}>
 				Invalid credentials
 			</div>
+		);
+	}
+
+	renderForm() {
+		return (
+			<form
+				onSubmit={e => {
+					this.onAcceptForm();
+					e.preventDefault();
+				}}
+			>
+				{this.renderInput("email", "Enter email")}
+				{this.renderInput("password", "Enter password")}
+				{this.renderError()}
+				{Login.renderAcceptButton()}
+			</form>
 		);
 	}
 
@@ -139,12 +136,7 @@ class Login extends React.Component {
 				<div className="offset-md-4 col-md-4">
 					<div className={`card ${border} mb-3`}>
 						<div className="card-header">Login</div>
-						<div className="card-body">
-							{this.renderInput("email", "Enter email")}
-							{this.renderInput("password", "Enter password")}
-							{this.renderError()}
-							{this.renderAcceptButton()}
-						</div>
+						<div className="card-body">{this.renderForm()}</div>
 					</div>
 				</div>
 			</div>
@@ -152,10 +144,4 @@ class Login extends React.Component {
 	}
 }
 
-Login.propTypes = {};
-
-const mapStateToProps = state => ({
-	initialHistoryLength: state.initialHistoryLength,
-});
-
-export default withRouter(connect(mapStateToProps, null)(Login));
+export default withRouter(Login);

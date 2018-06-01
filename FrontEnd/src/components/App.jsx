@@ -6,6 +6,8 @@ import Admin from "./Admin";
 import Spinner from "./Spinner";
 import Navbar from "./Navbar";
 import Login from "./Login";
+import Register from "./Register";
+import { getUser } from "~/actions/controller";
 
 class App extends React.Component {
 	constructor(props) {
@@ -14,6 +16,7 @@ class App extends React.Component {
 	}
 
 	componentDidMount() {
+		getUser();
 		this.hideSpinner();
 		this.mounted = true;
 	}
@@ -38,15 +41,12 @@ class App extends React.Component {
 		return (
 			<Router>
 				<div>
-					<Navbar
-						onLogout={() => {
-							this.setState({});
-						}}
-					/>
+					<Navbar />
 					<div className="app">
 						<Route exact path="/" component={Home} />
 						<Route path="/admin" component={Admin} />
 						<Route path="/login" component={Login} />
+						<Route path="/register" component={Register} />
 					</div>
 				</div>
 			</Router>
