@@ -3,8 +3,8 @@ import axios from "axios";
 import PropTypes from "prop-types";
 
 import { getHeaders } from "~/utils";
-import RatingSelect from "./RatingSelect";
-import GenreSelect from "./GenreSelect";
+import RatingSelect from "~/components/RatingSelect";
+import GenreSelect from "~/components/GenreSelect";
 
 class GameForm extends React.Component {
 	constructor(props) {

@@ -66,13 +66,22 @@ class GameCard extends React.Component {
 		);
 	}
 
+	renderControls() {
+		if (this.props.disabledControls) return null;
+		return (
+			<div className="mt-4">
+				{this.renderEditButton()}
+				{this.renderRemoveButton()}
+				{this.renderError()}
+			</div>
+		);
+	}
+
 	renderBody() {
 		return (
 			<div className="card-body">
 				{this.renderDate()}
-				{this.renderEditButton()}
-				{this.renderRemoveButton()}
-				{this.renderError()}
+				{this.renderControls()}
 			</div>
 		);
 	}
@@ -95,7 +104,7 @@ class GameCard extends React.Component {
 		const { game } = this.props;
 		const { releaseYear } = game;
 
-		return <h6 className="card-subtitle text-muted mb-4">{releaseYear}</h6>;
+		return <h6 className="card-subtitle text-muted">{releaseYear}</h6>;
 	}
 
 	renderMeta() {
@@ -145,9 +154,10 @@ class GameCard extends React.Component {
 GameCard.propTypes = {
 	game: PropTypes.objectOf(PropTypes.any).isRequired,
 	invalid: PropTypes.string,
-	removeGame: PropTypes.func.isRequired,
-	dismissError: PropTypes.func.isRequired,
-	onEditSuccess: PropTypes.func.isRequired,
+	removeGame: PropTypes.func,
+	dismissError: PropTypes.func,
+	onEditSuccess: PropTypes.func,
+	disabledControls: PropTypes.bool,
 };
 
 export default GameCard;

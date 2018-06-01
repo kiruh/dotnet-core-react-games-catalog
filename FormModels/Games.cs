@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Distributed.Models;
 
 namespace Distributed.FormModels
 {
@@ -13,5 +14,12 @@ namespace Distributed.FormModels
 
         public int? GenreId { get; set; }
         public int? RatingId { get; set; }
+    }
+
+    public class GamesPaginatorDto
+    {
+        public PaginatedList<Game> Games { get; set; }
+        public int PageIndex { get; set; }
+        public int TotalPages { get; set; }
     }
 }

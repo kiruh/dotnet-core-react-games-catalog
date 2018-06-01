@@ -1,9 +1,9 @@
 import React from "react";
 import axios from "axios";
 
-// import GameForm from "./GameForm";
-import GameCard from "./GameCard";
-import GameForm from "./GameForm";
+import GameForm from "~/components/GameComponents/GameForm";
+import GameCard from "~/components/GameComponents/GameCard";
+import Paginator from "~/components/Paginator";
 
 class Games extends React.Component {
 	constructor(props) {
@@ -16,6 +16,8 @@ class Games extends React.Component {
 			error: false,
 			errors: {},
 			createGame: false,
+			page: 1,
+			totalPages: 1,
 		};
 	}
 
@@ -24,16 +26,30 @@ class Games extends React.Component {
 		this.fetchGames();
 	}
 
+	componentDidUpdate() {
+		this.fixPages();
+	}
+
 	componentWillUnmount() {
 		this.mounted = false;
 	}
 
+	async fixPages() {
+		const { page, totalPages } = this.state;
+
+		if (page > totalPages && this.mounted) {
+			await this.setState({ page: totalPages });
+			this.fetchGames();
+		}
+	}
+
 	async fetchGames() {
 		try {
-			const response = await axios.get("/api/games/");
-			const games = response.data;
+			const { page } = this.state;
+			const response = await axios.get(`/api/games/paginate/${page}`);
+			const { games, totalPages } = response.data;
 			if (this.mounted) {
-				this.setState({ games });
+				this.setState({ games, totalPages });
 			}
 		} catch (error) {
 			if (this.mounted) {
@@ -107,6 +123,22 @@ class Games extends React.Component {
 		);
 	}
 
+	renderPaginator() {
+		const { page, totalPages } = this.state;
+		if (page > totalPages) return null;
+
+		return (
+			<Paginator
+				currentPage={page}
+				totalPages={totalPages}
+				onChange={async value => {
+					await this.setState({ page: value });
+					this.fetchGames();
+				}}
+			/>
+		);
+	}
+
 	render() {
 		if (this.state.error) {
 			return (
@@ -124,19 +156,7 @@ class Games extends React.Component {
 			<div>
 				{this.renderNewGameButton()}
 				<div className="row">{this.renderGames()}</div>
-				<ReactPaginate
-					previousLabel={"previous"}
-					nextLabel={"next"}
-					breakLabel={<a href="">...</a>}
-					breakClassName={"break-me"}
-					pageCount={this.state.pageCount}
-					marginPagesDisplayed={2}
-					pageRangeDisplayed={5}
-					onPageChange={this.handlePageClick}
-					containerClassName={"pagination"}
-					subContainerClassName={"pages pagination"}
-					activeClassName={"active"}
-				/>
+				{this.renderPaginator()}
 			</div>
 		);
 	}

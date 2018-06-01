@@ -27,6 +27,36 @@ namespace Distributed.Controllers
             return games;
         }
 
+        // GET api/games/1
+        [HttpGet]
+        [Route("Paginate/{page?}")]
+        public GamesPaginatorDto Paginate(int? page, int? ratingId, int? genreId, string name)
+        {
+            const int PageSize = 8;
+            IQueryable<Game> games = _context.Game
+                .Include(m => m.Genre)
+                .Include(m => m.Rating)
+                .Where(m => EF.Functions.Like(m.Name, $"{name}%"));
+
+            if (genreId != null)
+            {
+                games = games.Where(m => m.GenreId == genreId);
+            }
+
+            if (ratingId != null)
+            {
+                games = games.Where(m => m.RatingId == ratingId);
+            }
+
+            PaginatedList<Game> paginated = PaginatedList<Game>.Create(games, page ?? 1, PageSize);
+            return new GamesPaginatorDto
+            {
+                Games = paginated,
+                TotalPages = paginated.TotalPages,
+                PageIndex = paginated.PageIndex,
+            };
+        }
+
         // GET api/games/5
         [HttpGet("{id}")]
         public object Get(int id)
