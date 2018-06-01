@@ -142,9 +142,9 @@ class Register extends React.Component {
 	renderForm() {
 		return (
 			<form
-				onSubmit={e => {
+				onSubmit={event => {
+					event.preventDefault();
 					this.onAcceptForm();
-					e.preventDefault();
 				}}
 			>
 				{this.renderInput("firstName", "Enter first name")}

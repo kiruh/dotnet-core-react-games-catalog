@@ -113,9 +113,9 @@ class Login extends React.Component {
 	renderForm() {
 		return (
 			<form
-				onSubmit={e => {
+				onSubmit={event => {
+					event.preventDefault();
 					this.onAcceptForm();
-					e.preventDefault();
 				}}
 			>
 				{this.renderInput("email", "Enter email")}

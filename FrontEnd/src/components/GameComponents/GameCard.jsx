@@ -131,7 +131,6 @@ class GameCard extends React.Component {
 						}}
 						onCancel={() => {
 							this.setState({ edit: false });
-							this.props.onEditSuccess();
 						}}
 					/>
 				</div>

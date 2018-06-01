@@ -12,6 +12,7 @@ namespace Distributed.Controllers
     {
         [Route("")]
         [Route("Login")]
+        [Route("Register")]
         [Route("Admin/{id?}")]
         public IActionResult Index()
         {

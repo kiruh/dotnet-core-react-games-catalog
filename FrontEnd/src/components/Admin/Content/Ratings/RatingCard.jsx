@@ -88,6 +88,9 @@ class RatingCard extends React.Component {
 						this.setState({ edit: false });
 						this.props.onEditSuccess();
 					}}
+					onCancel={() => {
+						this.setState({ edit: false });
+					}}
 				/>
 			);
 		}

@@ -26,7 +26,11 @@ namespace Distributed.FormModels
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "PASSWORD_MIN_LENGTH", MinimumLength = 6)]
+        [StringLength(
+            100,
+            ErrorMessage = "Password should be at least 5 characters long",
+            MinimumLength = 5
+        )]
         public string Password { get; set; }
     }
 

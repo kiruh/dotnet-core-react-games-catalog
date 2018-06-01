@@ -39,42 +39,56 @@ namespace Distributed.Controllers
         [HttpPost]
         public async Task<object> Login([FromBody] LoginDto model)
         {
-            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
-
-            if (result.Succeeded)
+            if (ModelState.IsValid)
             {
-                var appUser = _userManager.Users.SingleOrDefault(r => r.Email == model.Email);
-                return new TokenDto
-                {
-                    Token = await GenerateJwtToken(model.Email, appUser)
-                };
-            }
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
 
-            return BadRequest("Invalid login attempt");
+                if (result.Succeeded)
+                {
+                    var appUser = _userManager.Users.SingleOrDefault(r => r.Email == model.Email);
+                    return new TokenDto
+                    {
+                        Token = await GenerateJwtToken(model.Email, appUser)
+                    };
+                }
+
+                return BadRequest("Invalid login attempt");
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
         }
 
         [HttpPost]
         public async Task<object> Register([FromBody] RegisterDto model)
         {
-            var user = new ApplicationUser
+            if (ModelState.IsValid)
             {
-                UserName = model.Email,
-                Email = model.Email,
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-            };
-            var result = await _userManager.CreateAsync(user, model.Password);
-
-            if (result.Succeeded)
-            {
-                await _signInManager.SignInAsync(user, false);
-                return new TokenDto
+                var user = new ApplicationUser
                 {
-                    Token = await GenerateJwtToken(model.Email, user)
+                    UserName = model.Email,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
                 };
-            }
+                var result = await _userManager.CreateAsync(user, model.Password);
 
-            return BadRequest(result.Errors);
+                if (result.Succeeded)
+                {
+                    await _signInManager.SignInAsync(user, false);
+                    return new TokenDto
+                    {
+                        Token = await GenerateJwtToken(model.Email, user)
+                    };
+                }
+
+                return BadRequest(result.Errors);
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
         }
 
         [HttpGet]

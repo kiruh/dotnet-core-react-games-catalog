@@ -5,6 +5,14 @@ import PropTypes from "prop-types";
 import { getHeaders } from "~/utils";
 
 class GenreForm extends React.Component {
+	static renderSaveButton() {
+		return (
+			<button type="submit" className="btn btn-primary">
+				Save
+			</button>
+		);
+	}
+
 	constructor(props) {
 		super(props);
 		this.state = this.getInitialState(props);
@@ -112,35 +120,48 @@ class GenreForm extends React.Component {
 		);
 	}
 
-	renderSaveButton() {
-		return (
-			<button
-				className="btn btn-primary"
-				onClick={() => {
-					this.onSave();
-				}}
-			>
-				Save
-			</button>
-		);
-	}
-
 	renderError() {
 		const { error } = this.state;
 		if (!error) return null;
 		return <p className="card-text text-danger">{error}</p>;
 	}
 
+	renderCancelButton() {
+		return (
+			<button
+				type="button"
+				className="btn btn-secondary mr-2"
+				onClick={() => {
+					const { onCancel } = this.props;
+					if (onCancel) onCancel();
+					else this.setState(this.getInitialState());
+				}}
+			>
+				Cancel
+			</button>
+		);
+	}
+
 	render() {
 		return (
 			<div className="col-md-3">
 				<div className="card text-white bg-light my-2">
-					<div className="card-header">{this.renderValueInput()}</div>
-					<div className="card-body">
-						{this.renderDescriptionInput()}
-						{this.renderError()}
-						{this.renderSaveButton()}
-					</div>
+					<form
+						onSubmit={event => {
+							event.preventDefault();
+							this.onSave();
+						}}
+					>
+						<div className="card-header">
+							{this.renderValueInput()}
+						</div>
+						<div className="card-body">
+							{this.renderDescriptionInput()}
+							{this.renderError()}
+							{this.renderCancelButton()}
+							{GenreForm.renderSaveButton()}
+						</div>
+					</form>
 				</div>
 			</div>
 		);
@@ -150,6 +171,7 @@ class GenreForm extends React.Component {
 GenreForm.propTypes = {
 	genre: PropTypes.objectOf(PropTypes.any),
 	onSave: PropTypes.func.isRequired,
+	onCancel: PropTypes.func,
 };
 
 export default GenreForm;

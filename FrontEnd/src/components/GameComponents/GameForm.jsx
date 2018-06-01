@@ -7,6 +7,14 @@ import RatingSelect from "~/components/RatingSelect";
 import GenreSelect from "~/components/GenreSelect";
 
 class GameForm extends React.Component {
+	static renderSaveButton() {
+		return (
+			<button type="submit" className="btn btn-primary">
+				Save
+			</button>
+		);
+	}
+
 	constructor(props) {
 		super(props);
 		this.state = this.getInitialState(props);
@@ -133,22 +141,10 @@ class GameForm extends React.Component {
 		);
 	}
 
-	renderSaveButton() {
-		return (
-			<button
-				className="btn btn-primary"
-				onClick={() => {
-					this.onSave();
-				}}
-			>
-				Save
-			</button>
-		);
-	}
-
 	renderCancelButton() {
 		return (
 			<button
+				type="button"
 				className="btn btn-secondary mr-2"
 				onClick={() => {
 					this.props.onCancel();
@@ -168,15 +164,22 @@ class GameForm extends React.Component {
 	render() {
 		return (
 			<div className="card text-white bg-light my-2">
-				<div className="card-header">{this.renderValueInput()}</div>
-				<div className="card-body">
-					{this.renderDescriptionInput()}
-					{this.renderGenreSelect()}
-					{this.renderRatingSelect()}
-					{this.renderError()}
-					{this.renderCancelButton()}
-					{this.renderSaveButton()}
-				</div>
+				<form
+					onSubmit={event => {
+						event.preventDefault();
+						this.onSave();
+					}}
+				>
+					<div className="card-header">{this.renderValueInput()}</div>
+					<div className="card-body">
+						{this.renderDescriptionInput()}
+						{this.renderGenreSelect()}
+						{this.renderRatingSelect()}
+						{this.renderError()}
+						{this.renderCancelButton()}
+						{GameForm.renderSaveButton()}
+					</div>
+				</form>
 			</div>
 		);
 	}
