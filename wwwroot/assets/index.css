@@ -1,13 +1,1 @@
-.scroll {
-  height: 150px;
-  overflow: auto;
-}
-.scroll::-webkit-scrollbar {
-  width: 12px;
-}
-.scroll::-webkit-scrollbar-thumb {
-  background: #666;
-}
-.scroll::-webkit-scrollbar-track {
-  background: #ddd;
-}
+.scroll{height:150px;overflow:auto}.scroll::-webkit-scrollbar{width:12px}.scroll::-webkit-scrollbar-thumb{background:#666}.scroll::-webkit-scrollbar-track{background:#ddd}.app{margin:20px 15px 60px}

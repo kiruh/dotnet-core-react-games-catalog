@@ -1,8 +1,11 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+
 import Home from "./Home";
 import Admin from "./Admin";
 import Spinner from "./Spinner";
+import Navbar from "./Navbar";
+import Login from "./Login";
 
 class App extends React.Component {
 	constructor(props) {
@@ -24,7 +27,7 @@ class App extends React.Component {
 			if (this.mounted) {
 				this.setState({ loading: false });
 			}
-		}, 1500);
+		}, 0);
 	}
 
 	render() {
@@ -35,8 +38,16 @@ class App extends React.Component {
 		return (
 			<Router>
 				<div>
-					<Route exact path="/" component={Home} />
-					<Route path="/admin" component={Admin} />
+					<Navbar
+						onLogout={() => {
+							this.setState({});
+						}}
+					/>
+					<div className="app">
+						<Route exact path="/" component={Home} />
+						<Route path="/admin" component={Admin} />
+						<Route path="/login" component={Login} />
+					</div>
 				</div>
 			</Router>
 		);

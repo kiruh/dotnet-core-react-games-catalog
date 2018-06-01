@@ -1,9 +1,8 @@
 /* eslint-env browser */
 import React from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
-import Login from "../Login";
 import Menu from "./Menu";
 import Content from "./Content";
 import NotFoundPage from "../NotFoundPage";
@@ -22,38 +21,32 @@ class Admin extends React.Component {
 	}
 
 	componentDidMount() {
-		this.checkPermissions();
-	}
-
-	componentDidUpdate() {
-		this.checkPermissions();
-	}
-
-	async checkPermissions() {
-		if (getToken() && this.state.isAdmin === null) {
-			try {
-				await axios.get("/api/account/protected", {
-					headers: getHeaders(),
-				});
-				this.setState({ isAdmin: true });
-			} catch (error) {
-				this.setState({ isAdmin: false });
-			}
+		if (getToken()) {
+			this.lastTokenChecked = getToken();
+			this.checkPermissions();
 		}
 	}
 
-	renderLoginView() {
-		return (
-			<Login
-				done={() => {
-					this.forceUpdate();
-				}}
-			/>
-		);
+	componentDidUpdate() {
+		if (this.lastTokenChecked !== getToken()) {
+			this.lastTokenChecked = getToken();
+			this.checkPermissions();
+		}
+	}
+
+	async checkPermissions() {
+		try {
+			await axios.get("/api/account/protected", {
+				headers: getHeaders(),
+			});
+			this.setState({ isAdmin: true });
+		} catch (error) {
+			this.setState({ isAdmin: false });
+		}
 	}
 
 	render() {
-		if (!getToken()) return this.renderLoginView();
+		if (!getToken()) return <Redirect to="/login" push />;
 
 		if (this.state.isAdmin === null) {
 			return null;
@@ -65,12 +58,6 @@ class Admin extends React.Component {
 
 		return (
 			<div>
-				<ol className="breadcrumb">
-					<li className="breadcrumb-item">
-						<Link to="/">Home</Link>
-					</li>
-					<li className="breadcrumb-item active">Admin</li>
-				</ol>
 				<Menu />
 				<div className="mt-4">
 					<Content />

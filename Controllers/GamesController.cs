@@ -76,7 +76,7 @@ namespace Distributed.Controllers
 
         // POST api/games
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public object Post([FromBody]GamePostDto model)
         {
             if (ModelState.IsValid)
@@ -101,7 +101,7 @@ namespace Distributed.Controllers
 
         // PUT api/games/5
         [HttpPut("{id}")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public object Put(int id, [FromBody]GamePostDto model)
         {
             if (ModelState.IsValid)
@@ -131,7 +131,7 @@ namespace Distributed.Controllers
 
         // DELETE api/games/5
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public object Delete(int id)
         {
             Game game = _context.Game.SingleOrDefault(m => m.Id == id);

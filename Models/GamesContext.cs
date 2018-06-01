@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Distributed.Models
 {
-    public class GamesContext : IdentityDbContext<User>
+    public class GamesContext : IdentityDbContext<ApplicationUser>
     {
         public GamesContext()
             : base()
@@ -13,7 +13,7 @@ namespace Distributed.Models
             : base(options)
         { }
 
-        public DbSet<Distributed.Models.User> User { get; set; }
+        public DbSet<Distributed.Models.ApplicationUser> ApplicationUser { get; set; }
         public DbSet<Distributed.Models.Game> Game { get; set; }
         public DbSet<Distributed.Models.Genre> Genre { get; set; }
         public DbSet<Distributed.Models.Rating> Rating { get; set; }

@@ -1,7 +1,8 @@
 /* eslint-env browser */
 import React from "react";
-import PropTypes from "prop-types";
 import axios from "axios";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 
 import { TOKEN_STORAGE_KEY } from "~/constants";
 
@@ -61,17 +62,23 @@ class Login extends React.Component {
 			const { token } = response.data;
 
 			localStorage.setItem(TOKEN_STORAGE_KEY, token);
-			if (this.mounted) {
-				this.props.done();
+			if (!this.mounted) return;
+
+			const { history, initialHistoryLength } = this.props;
+
+			if (history.length === initialHistoryLength) {
+				history.push("/");
+			} else {
+				history.goBack();
 			}
 		} catch (error) {
-			if (this.mounted) {
-				this.setState({
-					errors: {
-						credentials: "Invalid credentials",
-					},
-				});
-			}
+			if (!this.mounted) return;
+
+			this.setState({
+				errors: {
+					credentials: "Invalid credentials",
+				},
+			});
 		}
 	}
 
@@ -145,8 +152,10 @@ class Login extends React.Component {
 	}
 }
 
-Login.propTypes = {
-	done: PropTypes.func.isRequired,
-};
+Login.propTypes = {};
 
-export default Login;
+const mapStateToProps = state => ({
+	initialHistoryLength: state.initialHistoryLength,
+});
+
+export default withRouter(connect(mapStateToProps, null)(Login));

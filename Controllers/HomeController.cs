@@ -11,6 +11,7 @@ namespace Distributed.Controllers
     public class HomeController : Controller
     {
         [Route("")]
+        [Route("Login")]
         [Route("Admin/{id?}")]
         public IActionResult Index()
         {

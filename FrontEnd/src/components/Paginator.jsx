@@ -59,10 +59,12 @@ class Paginator extends React.Component {
 
 	renderFirstPage() {
 		if (!this.props.showFirstAndLastButton) return null;
+		const { currentPage } = this.props;
 
 		return (
 			<button
 				className="btn btn-light"
+				disabled={currentPage === 1}
 				onClick={() => this.props.onChange(1)}
 			>
 				<i className="fa fa-angle-double-left" />
@@ -71,10 +73,12 @@ class Paginator extends React.Component {
 	}
 
 	renderPreviousPage() {
+		const { currentPage } = this.props;
 		return (
 			<button
 				className="btn btn-light"
-				onClick={() => this.props.onChange(this.props.currentPage - 1)}
+				disabled={currentPage === 1}
+				onClick={() => this.props.onChange(currentPage - 1)}
 			>
 				<i className="fa fa-angle-left" />
 			</button>
@@ -82,10 +86,12 @@ class Paginator extends React.Component {
 	}
 
 	renderNextPage() {
+		const { totalPages, currentPage } = this.props;
 		return (
 			<button
 				className="btn btn-light"
-				onClick={() => this.props.onChange(this.props.currentPage + 1)}
+				disabled={currentPage === totalPages}
+				onClick={() => this.props.onChange(currentPage + 1)}
 			>
 				<i className="fa fa-angle-right" />
 			</button>
@@ -94,11 +100,12 @@ class Paginator extends React.Component {
 
 	renderLastPage() {
 		if (!this.props.showFirstAndLastButton) return null;
-		const { totalPages } = this.props;
+		const { totalPages, currentPage } = this.props;
 
 		return (
 			<button
 				className="btn btn-light"
+				disabled={currentPage === totalPages}
 				onClick={() => this.props.onChange(totalPages)}
 			>
 				<i className="fa fa-angle-double-right" />

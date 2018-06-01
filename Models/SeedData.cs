@@ -203,7 +203,7 @@ namespace Distributed.Models
         public static async Task Initialize(IServiceProvider serviceProvider)
         {
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
 
             string[] roleNames = { "Admin" };
             IdentityResult roleResult;
@@ -221,7 +221,7 @@ namespace Distributed.Models
             var _user = await userManager.FindByEmailAsync("admin@email.com");
             if (_user == null)
             {
-                var poweruser = new User
+                var poweruser = new ApplicationUser
                 {
                     FirstName = "Admin",
                     LastName = "Kirk",
@@ -238,10 +238,10 @@ namespace Distributed.Models
                 }
             }
 
-            User _regularUser = await userManager.FindByEmailAsync("regular@email.com");
+            ApplicationUser _regularUser = await userManager.FindByEmailAsync("regular@email.com");
             if (_regularUser == null)
             {
-                var regularuser = new User
+                var regularuser = new ApplicationUser
                 {
                     FirstName = "Regular",
                     LastName = "Kirk",

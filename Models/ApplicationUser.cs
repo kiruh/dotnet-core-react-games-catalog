@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Distributed.Models
 {
-    public class User : IdentityUser
+    public class ApplicationUser : IdentityUser
     {
         [Required]
         [MinLength(1)]

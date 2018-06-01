@@ -34,7 +34,7 @@ namespace Distributed
             );
 
             // ===== Add Identity ========
-            services.AddIdentity<User, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<GamesContext>()
                 .AddDefaultTokenProviders();
 

@@ -18,14 +18,14 @@ namespace Distributed.Controllers
     [Route("api/[controller]/[action]")]
     public class AccountController : Controller
     {
-        private readonly SignInManager<User> _signInManager;
-        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _configuration;
         private readonly GamesContext _context;
 
         public AccountController(
-            UserManager<User> userManager,
-            SignInManager<User> signInManager,
+            UserManager<ApplicationUser> userManager,
+            SignInManager<ApplicationUser> signInManager,
             IConfiguration configuration,
             GamesContext context
             )
@@ -46,7 +46,7 @@ namespace Distributed.Controllers
                 var appUser = _userManager.Users.SingleOrDefault(r => r.Email == model.Email);
                 return new TokenDto
                 {
-                    Token = GenerateJwtToken(model.Email, appUser)
+                    Token = await GenerateJwtToken(model.Email, appUser)
                 };
             }
 
@@ -56,7 +56,7 @@ namespace Distributed.Controllers
         [HttpPost]
         public async Task<object> Register([FromBody] RegisterDto model)
         {
-            var user = new User
+            var user = new ApplicationUser
             {
                 UserName = model.Email,
                 Email = model.Email,
@@ -70,7 +70,7 @@ namespace Distributed.Controllers
                 await _signInManager.SignInAsync(user, false);
                 return new TokenDto
                 {
-                    Token = GenerateJwtToken(model.Email, user)
+                    Token = await GenerateJwtToken(model.Email, user)
                 };
             }
 
@@ -78,19 +78,36 @@ namespace Distributed.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public object Protected()
         {
             return "Protected area";
         }
 
-        private string GenerateJwtToken(string email, User user)
+        [HttpGet]
+        [Authorize]
+        public async Task<UserDto> GetUser()
         {
+            ApplicationUser user = await _userManager.GetUserAsync(User);
+            bool IsAdmin = await _userManager.IsInRoleAsync(user, "Admin");
+
+            UserDto userDto = UserDto.GetFromApplicationUser(user);
+            userDto.IsAdmin = IsAdmin;
+
+            return userDto;
+        }
+
+        private async Task<string> GenerateJwtToken(string email, ApplicationUser user)
+        {
+            IList<string> RolesList = await _userManager.GetRolesAsync(user);
+            string Roles = string.Join(",", RolesList);
+
             var claims = new List<Claim>
             {
                 new Claim(JwtRegisteredClaimNames.Sub, email),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(ClaimTypes.NameIdentifier, user.Id)
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
+                new Claim(ClaimTypes.Role, Roles),
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtKey"]));
