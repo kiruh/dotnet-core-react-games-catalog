@@ -3,6 +3,7 @@ using Distributed.Models;
 using Microsoft.AspNetCore.Mvc;
 using Distributed.FormModels;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Distributed.Controllers
 {
@@ -40,6 +41,7 @@ namespace Distributed.Controllers
 
         // POST api/ratings
         [HttpPost]
+        [Authorize]
         public object Post([FromBody]RatingPostDto model)
         {
             if (ModelState.IsValid)
@@ -64,6 +66,7 @@ namespace Distributed.Controllers
 
         // PUT api/ratings/5
         [HttpPut("{id}")]
+        [Authorize]
         public object Put(int id, [FromBody]RatingPostDto model)
         {
             if (ModelState.IsValid)
@@ -93,6 +96,7 @@ namespace Distributed.Controllers
 
         // DELETE api/ratings/5
         [HttpDelete("{id}")]
+        [Authorize]
         public object Delete(int id)
         {
             Rating rating = _context.Rating.SingleOrDefault(m => m.Id == id);

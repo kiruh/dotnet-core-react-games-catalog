@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Distributed.FormModels;
 using System;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Distributed.Controllers
 {
@@ -75,6 +76,7 @@ namespace Distributed.Controllers
 
         // POST api/games
         [HttpPost]
+        [Authorize]
         public object Post([FromBody]GamePostDto model)
         {
             if (ModelState.IsValid)
@@ -99,6 +101,7 @@ namespace Distributed.Controllers
 
         // PUT api/games/5
         [HttpPut("{id}")]
+        [Authorize]
         public object Put(int id, [FromBody]GamePostDto model)
         {
             if (ModelState.IsValid)
@@ -128,6 +131,7 @@ namespace Distributed.Controllers
 
         // DELETE api/games/5
         [HttpDelete("{id}")]
+        [Authorize]
         public object Delete(int id)
         {
             Game game = _context.Game.SingleOrDefault(m => m.Id == id);

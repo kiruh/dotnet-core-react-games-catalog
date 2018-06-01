@@ -29,10 +29,12 @@ class Admin extends React.Component {
 		this.checkPermissions();
 	}
 
-	checkPermissions() {
+	async checkPermissions() {
 		if (getToken() && this.state.isAdmin === null) {
 			try {
-				axios.get("/api/account/protected", { headers: getHeaders() });
+				await axios.get("/api/account/protected", {
+					headers: getHeaders(),
+				});
 				this.setState({ isAdmin: true });
 			} catch (error) {
 				this.setState({ isAdmin: false });

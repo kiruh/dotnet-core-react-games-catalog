@@ -3,6 +3,7 @@ import axios from "axios";
 
 import RatingForm from "./RatingForm";
 import RatingCard from "./RatingCard";
+import { getHeaders } from "~/utils";
 
 class Ratings extends React.Component {
 	constructor(props) {
@@ -42,7 +43,7 @@ class Ratings extends React.Component {
 
 	async removeRating(id) {
 		try {
-			await axios.delete(`/api/ratings/${id}`);
+			await axios.delete(`/api/ratings/${id}`, { headers: getHeaders() });
 			this.fetchRatings();
 		} catch (error) {
 			const errors = { [id]: error.response.data.exception };

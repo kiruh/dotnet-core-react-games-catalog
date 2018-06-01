@@ -17,20 +17,20 @@ namespace Distributed.Models
                 new Genre
                 {
                     Id = 1,
-                    Name = "RPG",
-                    Description = "RPG Description",
+                    Name = "Action",
+                    Description = "Action Description",
                 },
                 new Genre
                 {
                     Id = 2,
-                    Name = "Arcade",
-                    Description = "Arcade Description",
+                    Name = "Adventure",
+                    Description = "Adventure Description",
                 },
                 new Genre
                 {
                     Id = 3,
-                    Name = "Action",
-                    Description = "Action Description",
+                    Name = "RPG",
+                    Description = "RPG Description",
                 },
                 new Genre
                 {
@@ -43,6 +43,18 @@ namespace Distributed.Models
                     Id = 5,
                     Name = "Simulation",
                     Description = "Simulation Description",
+                },
+                new Genre
+                {
+                    Id = 6,
+                    Name = "Sports",
+                    Description = "Sports Description",
+                },
+                new Genre
+                {
+                    Id = 7,
+                    Name = "Shooter",
+                    Description = "Shooter Description",
                 }
             );
             context.SaveChanges();
@@ -54,31 +66,31 @@ namespace Distributed.Models
                 new Rating
                 {
                     Id = 1,
-                    Value = "1",
+                    Value = "One point",
                     Description = "One :((",
                 },
                 new Rating
                 {
                     Id = 2,
-                    Value = "2",
+                    Value = "Two points",
                     Description = "Two :(",
                 },
                 new Rating
                 {
                     Id = 3,
-                    Value = "3",
+                    Value = "Three points",
                     Description = "Three...",
                 },
                 new Rating
                 {
                     Id = 4,
-                    Value = "4",
+                    Value = "Four points",
                     Description = "Four!!",
                 },
                 new Rating
                 {
                     Id = 5,
-                    Value = "5",
+                    Value = "Five points",
                     Description = "Five!!!",
                 }
             );
@@ -91,42 +103,98 @@ namespace Distributed.Models
                 new Game
                 {
                     Id = 1,
-                    Name = "Game 1",
-                    ReleaseYear = "2018-01-01",
-                    RatingId = 1,
+                    Name = "Far Cry 5",
+                    ReleaseYear = "2018",
+                    RatingId = 4,
                     GenreId = 1,
                 },
                 new Game
                 {
                     Id = 2,
-                    Name = "Game 2",
-                    ReleaseYear = "2018-02-02",
-                    RatingId = 2,
-                    GenreId = 2,
+                    Name = "Medal of Heroes",
+                    ReleaseYear = "2007",
+                    RatingId = 4,
+                    GenreId = 1,
                 },
                 new Game
                 {
                     Id = 3,
-                    Name = "Game 3",
-                    ReleaseYear = "2018-03-03",
-                    RatingId = 3,
-                    GenreId = 3,
+                    Name = "Minecraft",
+                    ReleaseYear = "2009",
+                    RatingId = 5,
+                    GenreId = 2,
                 },
                 new Game
                 {
                     Id = 4,
-                    Name = "Game 4",
-                    ReleaseYear = "2018-04-04",
-                    RatingId = 4,
-                    GenreId = 4,
+                    Name = "The Secret of Monkey Island",
+                    ReleaseYear = "1990",
+                    RatingId = 1,
+                    GenreId = 2,
                 },
                 new Game
                 {
                     Id = 5,
-                    Name = "Game 5",
-                    ReleaseYear = "2018-05-05",
-                    RatingId = 5,
+                    Name = "Dark Souls",
+                    ReleaseYear = "2011",
+                    RatingId = 4,
+                    GenreId = 3,
+                },
+                new Game
+                {
+                    Id = 6,
+                    Name = "Skyrim",
+                    ReleaseYear = "2011",
+                    RatingId = 4,
+                    GenreId = 3,
+                },
+                new Game
+                {
+                    Id = 7,
+                    Name = "Age of Empires",
+                    ReleaseYear = "1997",
+                    RatingId = 3,
+                    GenreId = 4,
+                },
+                new Game
+                {
+                    Id = 8,
+                    Name = "The Sims",
+                    ReleaseYear = "2014",
+                    RatingId = 4,
                     GenreId = 5,
+                },
+                new Game
+                {
+                    Id = 9,
+                    Name = "FIFA 18",
+                    ReleaseYear = "2017",
+                    RatingId = 4,
+                    GenreId = 6,
+                },
+                new Game
+                {
+                    Id = 10,
+                    Name = "Pro Evolution Soccer 2017",
+                    ReleaseYear = "2016",
+                    RatingId = 3,
+                    GenreId = 6,
+                },
+                new Game
+                {
+                    Id = 11,
+                    Name = "CS: GO",
+                    ReleaseYear = "2012",
+                    RatingId = 5,
+                    GenreId = 7,
+                },
+                new Game
+                {
+                    Id = 12,
+                    Name = "Call of Duty",
+                    ReleaseYear = "2003",
+                    RatingId = 4,
+                    GenreId = 7,
                 }
             );
             context.SaveChanges();

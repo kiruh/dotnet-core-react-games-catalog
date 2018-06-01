@@ -4,6 +4,7 @@ import axios from "axios";
 import GameForm from "~/components/GameComponents/GameForm";
 import GameCard from "~/components/GameComponents/GameCard";
 import Paginator from "~/components/Paginator";
+import { getHeaders } from "~/utils";
 
 class Games extends React.Component {
 	constructor(props) {
@@ -60,7 +61,7 @@ class Games extends React.Component {
 
 	async removeGame(id) {
 		try {
-			await axios.delete(`/api/games/${id}`);
+			await axios.delete(`/api/games/${id}`, { headers: getHeaders() });
 			this.fetchGames();
 		} catch (error) {
 			const errors = { [id]: error.response.data.exception };

@@ -3,6 +3,7 @@ import axios from "axios";
 
 import GenreForm from "./GenreForm";
 import GenreCard from "./GenreCard";
+import { getHeaders } from "~/utils";
 
 class Genres extends React.Component {
 	constructor(props) {
@@ -42,7 +43,7 @@ class Genres extends React.Component {
 
 	async removeGenre(id) {
 		try {
-			await axios.delete(`/api/genres/${id}`);
+			await axios.delete(`/api/genres/${id}`, { headers: getHeaders() });
 			this.fetchGenres();
 		} catch (error) {
 			const errors = { [id]: error.response.data.exception };

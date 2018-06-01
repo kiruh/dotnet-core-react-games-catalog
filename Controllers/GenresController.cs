@@ -3,6 +3,7 @@ using Distributed.Models;
 using Microsoft.AspNetCore.Mvc;
 using Distributed.FormModels;
 using System;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Distributed.Controllers
 {
@@ -40,6 +41,7 @@ namespace Distributed.Controllers
 
         // POST api/genres
         [HttpPost]
+        [Authorize]
         public object Post([FromBody]GenrePostDto model)
         {
             if (ModelState.IsValid)
@@ -64,6 +66,7 @@ namespace Distributed.Controllers
 
         // PUT api/genres/5
         [HttpPut("{id}")]
+        [Authorize]
         public object Put(int id, [FromBody]GenrePostDto model)
         {
             if (ModelState.IsValid)
@@ -93,6 +96,7 @@ namespace Distributed.Controllers
 
         // DELETE api/genres/5
         [HttpDelete("{id}")]
+        [Authorize]
         public object Delete(int id)
         {
             Genre genre = _context.Genre.SingleOrDefault(m => m.Id == id);

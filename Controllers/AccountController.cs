@@ -77,8 +77,8 @@ namespace Distributed.Controllers
             return BadRequest(result.Errors);
         }
 
-        [Authorize]
         [HttpGet]
+        [Authorize]
         public object Protected()
         {
             return "Protected area";
