@@ -1,23 +1,24 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { Link, withRouter, NavLink } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import { logout } from "~/actions/controller";
 
 class Navbar extends React.Component {
+	getLinkLiClass(route) {
+		return `nav-item ${
+			this.props.location.pathname.startsWith(route) ? "active" : ""
+		}`;
+	}
+
 	renderLoginLink() {
 		if (this.props.user) return null;
 		return (
-			<li className="nav-item">
-				<NavLink
-					exact
-					to="/login"
-					className="btn btn-link nav-link"
-					activeClassName="active"
-				>
+			<li className={this.getLinkLiClass("/login")}>
+				<Link to="/login" className="btn btn-link nav-link">
 					Login
-				</NavLink>
+				</Link>
 			</li>
 		);
 	}
@@ -25,15 +26,10 @@ class Navbar extends React.Component {
 	renderRegisterLink() {
 		if (this.props.user) return null;
 		return (
-			<li className="nav-item">
-				<NavLink
-					exact
-					to="/register"
-					className="btn btn-link nav-link"
-					activeClassName="active"
-				>
+			<li className={this.getLinkLiClass("/register")}>
+				<Link to="/register" className="btn btn-link nav-link">
 					Register
-				</NavLink>
+				</Link>
 			</li>
 		);
 	}
@@ -58,14 +54,10 @@ class Navbar extends React.Component {
 		if (!this.props.user) return null;
 		if (!this.props.user.isAdmin) return null;
 		return (
-			<li className="nav-item">
-				<NavLink
-					to="/admin"
-					className="btn btn-link nav-link"
-					activeClassName="active"
-				>
+			<li className={this.getLinkLiClass("/admin")}>
+				<Link to="/admin" className="btn btn-link nav-link">
 					Admin
-				</NavLink>
+				</Link>
 			</li>
 		);
 	}
@@ -73,10 +65,10 @@ class Navbar extends React.Component {
 	renderUserName() {
 		if (!this.props.user) return null;
 		return (
-			<li className="nav-item">
-				<div className="nav-link text-white">
-					Logged in as <strong>{this.props.user.fullName}</strong>
-				</div>
+			<li className="nav-item active">
+				<a className="nav-link btn btn-link">
+					<strong>{this.props.user.fullName}</strong>
+				</a>
 			</li>
 		);
 	}
@@ -123,6 +115,7 @@ class Navbar extends React.Component {
 Navbar.propTypes = {
 	user: PropTypes.objectOf(PropTypes.any),
 	fetchingUser: PropTypes.bool,
+	location: PropTypes.objectOf(PropTypes.any),
 };
 
 const mapStateToProps = state => ({
@@ -130,4 +123,4 @@ const mapStateToProps = state => ({
 	fetchingUser: state.fetchingUser,
 });
 
-export default connect(mapStateToProps, null)(withRouter(Navbar));
+export default withRouter(connect(mapStateToProps, null)(Navbar));
