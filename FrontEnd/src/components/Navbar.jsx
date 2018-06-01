@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -16,7 +17,7 @@ class Navbar extends React.Component {
 		if (this.props.user) return null;
 		return (
 			<li className={this.getLinkLiClass("/login")}>
-				<Link to="/login" className="btn btn-link nav-link">
+				<Link to="/login" className="nav-link">
 					Login
 				</Link>
 			</li>
@@ -27,7 +28,7 @@ class Navbar extends React.Component {
 		if (this.props.user) return null;
 		return (
 			<li className={this.getLinkLiClass("/register")}>
-				<Link to="/register" className="btn btn-link nav-link">
+				<Link to="/register" className="nav-link">
 					Register
 				</Link>
 			</li>
@@ -38,14 +39,14 @@ class Navbar extends React.Component {
 		if (!this.props.user) return null;
 		return (
 			<li className="nav-item">
-				<button
-					className="btn btn-link nav-link"
+				<a
+					className="nav-link"
 					onClick={() => {
 						logout();
 					}}
 				>
 					Logout
-				</button>
+				</a>
 			</li>
 		);
 	}
@@ -55,7 +56,7 @@ class Navbar extends React.Component {
 		if (!this.props.user.isAdmin) return null;
 		return (
 			<li className={this.getLinkLiClass("/admin")}>
-				<Link to="/admin" className="btn btn-link nav-link">
+				<Link to="/admin" className="nav-link">
 					Admin
 				</Link>
 			</li>
@@ -65,8 +66,8 @@ class Navbar extends React.Component {
 	renderUserName() {
 		if (!this.props.user) return null;
 		return (
-			<li className="nav-item active">
-				<a className="nav-link btn btn-link">
+			<li className="nav-item">
+				<a className="nav-link">
 					<strong>{this.props.user.fullName}</strong>
 				</a>
 			</li>
