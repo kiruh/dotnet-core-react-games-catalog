@@ -134,7 +134,7 @@ class RatingForm extends React.Component {
 	render() {
 		return (
 			<div className="col-md-3">
-				<div className={`text-white bg-light my-2`}>
+				<div className="card text-white bg-light my-2">
 					<div className="card-header">{this.renderValueInput()}</div>
 					<div className="card-body">
 						{this.renderDescriptionInput()}

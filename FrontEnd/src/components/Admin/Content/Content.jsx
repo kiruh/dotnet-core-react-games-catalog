@@ -9,7 +9,7 @@ class Content extends React.Component {
 	render() {
 		return (
 			<div>
-				<Route path="/admin/games" component={Games} />
+				<Route exact path="/admin" component={Games} />
 				<Route path="/admin/genres" component={Genres} />
 				<Route path="/admin/ratings" component={Ratings} />
 			</div>

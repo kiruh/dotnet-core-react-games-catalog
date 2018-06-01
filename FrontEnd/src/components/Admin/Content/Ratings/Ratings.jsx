@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 
-import Spinner from "~/components/Spinner";
 import RatingForm from "./RatingForm";
 import RatingCard from "./RatingCard";
 
@@ -97,7 +96,7 @@ class Ratings extends React.Component {
 			);
 		}
 
-		if (!this.state.ratings) return <Spinner />;
+		if (!this.state.ratings) return null;
 
 		return (
 			<div>

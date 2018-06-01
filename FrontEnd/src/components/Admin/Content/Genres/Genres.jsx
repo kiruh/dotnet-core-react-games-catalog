@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 
-import Spinner from "~/components/Spinner";
 import GenreForm from "./GenreForm";
 import GenreCard from "./GenreCard";
 
@@ -97,7 +96,7 @@ class Genres extends React.Component {
 			);
 		}
 
-		if (!this.state.genres) return <Spinner />;
+		if (!this.state.genres) return null;
 
 		return (
 			<div>

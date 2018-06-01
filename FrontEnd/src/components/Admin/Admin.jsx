@@ -7,7 +7,6 @@ import Login from "../Login";
 import Menu from "./Menu";
 import Content from "./Content";
 import NotFoundPage from "../NotFoundPage";
-import Spinner from "../Spinner";
 import { getToken, getHeaders } from "~/utils";
 
 class Admin extends React.Component {
@@ -55,7 +54,7 @@ class Admin extends React.Component {
 		if (!getToken()) return this.renderLoginView();
 
 		if (this.state.isAdmin === null) {
-			return <Spinner />;
+			return null;
 		}
 
 		if (!this.state.isAdmin) {

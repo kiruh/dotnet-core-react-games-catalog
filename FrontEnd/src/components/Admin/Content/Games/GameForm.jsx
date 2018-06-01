@@ -3,18 +3,22 @@ import axios from "axios";
 import PropTypes from "prop-types";
 
 import { getHeaders } from "~/utils";
+import RatingSelect from "./RatingSelect";
+import GenreSelect from "./GenreSelect";
 
-class GenreForm extends React.Component {
+class GameForm extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = this.getInitialState(props);
 	}
 
 	getInitialState() {
-		const { genre } = this.props;
+		const { game } = this.props;
 		return {
-			name: genre ? genre.name : "",
-			description: genre ? genre.description : "",
+			name: game ? game.name : "",
+			releaseYear: game ? game.releaseYear : "",
+			ratingId: game ? game.ratingId : null,
+			genreId: game ? game.genreId : null,
 			error: null,
 		};
 	}
@@ -35,29 +39,29 @@ class GenreForm extends React.Component {
 	}
 
 	onSave() {
-		if (!this.state.name || !this.state.description) {
+		if (!this.state.name || !this.state.releaseYear) {
 			const error = "Please fill in all fields";
 			this.setState({ error });
 			return;
 		}
-		this.saveGenre();
+		this.saveGame();
 	}
 
-	async saveGenre() {
-		const { genre } = this.props;
+	async saveGame() {
+		const { game } = this.props;
 		try {
-			const { name, description } = this.state;
-			if (genre) {
-				const { id } = genre;
+			const { name, releaseYear, ratingId, genreId } = this.state;
+			if (game) {
+				const { id } = game;
 				await axios.put(
-					`/api/genres/${id}`,
-					{ name, description },
+					`/api/games/${id}`,
+					{ name, releaseYear, ratingId, genreId },
 					{ headers: getHeaders() },
 				);
 			} else {
 				await axios.post(
-					"/api/genres/",
-					{ name, description },
+					"/api/games/",
+					{ name, releaseYear, ratingId, genreId },
 					{ headers: getHeaders() },
 				);
 			}
@@ -67,7 +71,7 @@ class GenreForm extends React.Component {
 				if (this.mounted) {
 					this.setState({
 						name: "",
-						description: "",
+						releaseYear: "",
 						error: null,
 					});
 				}
@@ -99,16 +103,33 @@ class GenreForm extends React.Component {
 	renderDescriptionInput() {
 		return (
 			<div className="form-group">
-				<textarea
-					className="form-control bg-light text-white"
-					placeholder="Description"
-					value={this.state.description}
+				<input
+					className="form-control bg-secondary text-white"
+					placeholder="Release year"
+					value={this.state.releaseYear}
 					onChange={event => {
-						this.onChangeInput(event.target.value, "description");
+						this.onChangeInput(event.target.value, "releaseYear");
 					}}
-					rows="5"
 				/>
 			</div>
+		);
+	}
+
+	renderRatingSelect() {
+		return (
+			<RatingSelect
+				value={this.state.ratingId}
+				onChange={ratingId => this.onChangeInput(ratingId, "ratingId")}
+			/>
+		);
+	}
+
+	renderGenreSelect() {
+		return (
+			<GenreSelect
+				value={this.state.genreId}
+				onChange={genreId => this.onChangeInput(genreId, "genreId")}
+			/>
 		);
 	}
 
@@ -125,6 +146,19 @@ class GenreForm extends React.Component {
 		);
 	}
 
+	renderCancelButton() {
+		return (
+			<button
+				className="btn btn-secondary mr-2"
+				onClick={() => {
+					this.props.onCancel();
+				}}
+			>
+				Cancel
+			</button>
+		);
+	}
+
 	renderError() {
 		const { error } = this.state;
 		if (!error) return null;
@@ -133,23 +167,25 @@ class GenreForm extends React.Component {
 
 	render() {
 		return (
-			<div className="col-md-3">
-				<div className="card text-white bg-light my-2">
-					<div className="card-header">{this.renderValueInput()}</div>
-					<div className="card-body">
-						{this.renderDescriptionInput()}
-						{this.renderError()}
-						{this.renderSaveButton()}
-					</div>
+			<div className="card text-white bg-light my-2">
+				<div className="card-header">{this.renderValueInput()}</div>
+				<div className="card-body">
+					{this.renderDescriptionInput()}
+					{this.renderGenreSelect()}
+					{this.renderRatingSelect()}
+					{this.renderError()}
+					{this.renderCancelButton()}
+					{this.renderSaveButton()}
 				</div>
 			</div>
 		);
 	}
 }
 
-GenreForm.propTypes = {
-	genre: PropTypes.objectOf(PropTypes.any),
+GameForm.propTypes = {
+	game: PropTypes.objectOf(PropTypes.any),
 	onSave: PropTypes.func.isRequired,
+	onCancel: PropTypes.func.isRequired,
 };
 
-export default GenreForm;
+export default GameForm;
