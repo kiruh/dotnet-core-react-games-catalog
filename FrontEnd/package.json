@@ -24,7 +24,7 @@
 		"file-loader": "^1.1.11",
 		"find-port": "^2.0.1",
 		"friendly-errors-webpack-plugin": "^1.6.1",
-		"less": "^2.7.3",
+		"less": "^3.0.4",
 		"less-loader": "^4.0.5",
 		"nps": "^5.7.1",
 		"postcss-loader": "^2.1.5",
