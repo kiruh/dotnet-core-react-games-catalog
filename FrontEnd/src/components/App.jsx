@@ -30,7 +30,7 @@ class App extends React.Component {
 			if (this.mounted) {
 				this.setState({ loading: false });
 			}
-		}, 0);
+		}, 1500);
 	}
 
 	render() {

@@ -1,8 +1,15 @@
+/* eslint-env browser */
 import React from "react";
 import PropTypes from "prop-types";
 import _ from "lodash";
 
 class Paginator extends React.Component {
+	onChangePage(page) {
+		this.props.onChange(page);
+		const wrapper = document.getElementById("wrapper");
+		wrapper.scrollIntoView();
+	}
+
 	getStartAndEnd() {
 		const { currentPage, totalPages } = this.props;
 		if (totalPages <= 10) {
@@ -50,7 +57,7 @@ class Paginator extends React.Component {
 			<button
 				key={index}
 				className={this.getNumberClassName(page)}
-				onClick={() => this.props.onChange(page)}
+				onClick={() => this.onChangePage(page)}
 			>
 				{page}
 			</button>
@@ -65,7 +72,7 @@ class Paginator extends React.Component {
 			<button
 				className="btn btn-light"
 				disabled={currentPage === 1}
-				onClick={() => this.props.onChange(1)}
+				onClick={() => this.onChangePage(1)}
 			>
 				<i className="fa fa-angle-double-left" />
 			</button>
@@ -78,7 +85,7 @@ class Paginator extends React.Component {
 			<button
 				className="btn btn-light"
 				disabled={currentPage === 1}
-				onClick={() => this.props.onChange(currentPage - 1)}
+				onClick={() => this.onChangePage(currentPage - 1)}
 			>
 				<i className="fa fa-angle-left" />
 			</button>
@@ -91,7 +98,7 @@ class Paginator extends React.Component {
 			<button
 				className="btn btn-light"
 				disabled={currentPage === totalPages}
-				onClick={() => this.props.onChange(currentPage + 1)}
+				onClick={() => this.onChangePage(currentPage + 1)}
 			>
 				<i className="fa fa-angle-right" />
 			</button>
@@ -106,7 +113,7 @@ class Paginator extends React.Component {
 			<button
 				className="btn btn-light"
 				disabled={currentPage === totalPages}
-				onClick={() => this.props.onChange(totalPages)}
+				onClick={() => this.onChangePage(totalPages)}
 			>
 				<i className="fa fa-angle-double-right" />
 			</button>
@@ -139,7 +146,7 @@ class Paginator extends React.Component {
 
 Paginator.defaultProps = {
 	currentPage: 1,
-	showFirstAndLastButton: true,
+	showFirstAndLastButton: false,
 };
 
 Paginator.propTypes = {

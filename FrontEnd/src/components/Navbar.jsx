@@ -97,15 +97,15 @@ class Navbar extends React.Component {
 					className="navbar-toggler collapsed"
 					type="button"
 					data-toggle="collapse"
-					data-target="#navbarColor03"
-					aria-controls="navbarColor03"
+					data-target="#navbar"
+					aria-controls="navbar"
 					aria-expanded="false"
 					aria-label="Toggle navigation"
 				>
 					<span className="navbar-toggler-icon" />
 				</button>
 
-				<div className="navbar-collapse collapse" id="navbarColor03">
+				<div className="navbar-collapse collapse" id="navbar">
 					{this.renderContent()}
 				</div>
 			</nav>
