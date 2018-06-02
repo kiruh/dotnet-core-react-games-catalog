@@ -1,5 +1,3 @@
-# Games
-
 ## Install locally
 
 `git clone git@github.com:kiruh/games.git && cd games`
