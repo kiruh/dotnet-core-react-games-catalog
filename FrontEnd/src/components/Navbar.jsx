@@ -44,6 +44,7 @@ class Navbar extends React.Component {
 					onClick={() => {
 						logout();
 					}}
+					style={{ cursor: "pointer" }}
 				>
 					Logout
 				</a>
@@ -67,7 +68,10 @@ class Navbar extends React.Component {
 		if (!this.props.user) return null;
 		return (
 			<li className="nav-item">
-				<a className="nav-link">
+				<a
+					className="nav-link"
+					style={{ color: "rgba(255,255,255,0.5)" }}
+				>
 					<strong>{this.props.user.fullName}</strong>
 				</a>
 			</li>
