@@ -48,7 +48,7 @@ namespace Distributed.Controllers
             {
                 try
                 {
-                    Genre genre = Genre.CreateFromPostDto(model);
+                    Genre genre = model.GetGenre();
                     _context.Add(genre);
                     _context.SaveChanges();
                     return StatusCode(201, genre);
@@ -78,7 +78,7 @@ namespace Distributed.Controllers
                     {
                         return NotFound();
                     }
-                    genre.UpdateFromPostDto(model);
+                    model.UpdateGenre(genre);
                     _context.Update(genre);
                     _context.SaveChanges();
                     return StatusCode(200, genre);

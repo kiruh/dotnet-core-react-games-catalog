@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using Distributed.FormModels;
 
 namespace Distributed.Models
 {
@@ -17,20 +16,5 @@ namespace Distributed.Models
         [MinLength(1)]
         [MaxLength(400)]
         public string Description { get; set; }
-
-        public static Rating CreateFromPostDto(RatingPostDto model)
-        {
-            return new Rating
-            {
-                Value = model.Value,
-                Description = model.Description
-            };
-        }
-
-        public void UpdateFromPostDto(RatingPostDto model)
-        {
-            Value = model.Value;
-            Description = model.Description;
-        }
     }
 }

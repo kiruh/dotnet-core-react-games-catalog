@@ -83,7 +83,7 @@ namespace Distributed.Controllers
             {
                 try
                 {
-                    Game game = Game.CreateFromPostDto(model);
+                    Game game = model.GetGame();
                     _context.Add(game);
                     _context.SaveChanges();
                     return StatusCode(201, game);
@@ -113,7 +113,7 @@ namespace Distributed.Controllers
                     {
                         return NotFound();
                     }
-                    game.UpdateFromPostDto(model);
+                    model.UpdateGame(game);
                     _context.Update(game);
                     _context.SaveChanges();
                     return StatusCode(200, game);

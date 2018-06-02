@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using Distributed.Models;
 
 namespace Distributed.FormModels
 {
@@ -13,5 +14,20 @@ namespace Distributed.FormModels
         [MinLength(1)]
         [MaxLength(400)]
         public string Description { get; set; }
+
+        public Rating GetRating()
+        {
+            return new Rating
+            {
+                Value = Value,
+                Description = Description
+            };
+        }
+
+        public void UpdateRating(Rating model)
+        {
+            model.Value = Value;
+            model.Description = Description;
+        }
     }
 }

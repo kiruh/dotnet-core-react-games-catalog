@@ -48,7 +48,7 @@ namespace Distributed.Controllers
             {
                 try
                 {
-                    Rating rating = Rating.CreateFromPostDto(model);
+                    Rating rating = model.GetRating();
                     _context.Add(rating);
                     _context.SaveChanges();
                     return StatusCode(201, rating);
@@ -78,7 +78,7 @@ namespace Distributed.Controllers
                     {
                         return NotFound();
                     }
-                    rating.UpdateFromPostDto(model);
+                    model.UpdateRating(rating);
                     _context.Update(rating);
                     _context.SaveChanges();
                     return StatusCode(200, rating);
