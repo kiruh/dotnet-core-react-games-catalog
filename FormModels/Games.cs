@@ -11,10 +11,11 @@ namespace Distributed.FormModels
         public string Name { get; set; }
         [Required]
         public string ReleaseYear { get; set; }
+        [Required]
+        public string Company { get; set; }
 
         public int? GenreId { get; set; }
         public int? RatingId { get; set; }
-
 
         public void UpdateGame(Game model)
         {
@@ -22,6 +23,7 @@ namespace Distributed.FormModels
             model.ReleaseYear = ReleaseYear;
             model.GenreId = GenreId;
             model.RatingId = RatingId;
+            model.Company = Company;
         }
 
         public Game GetGame()
@@ -31,7 +33,8 @@ namespace Distributed.FormModels
                 Name = Name,
                 ReleaseYear = ReleaseYear,
                 GenreId = GenreId,
-                RatingId = RatingId
+                RatingId = RatingId,
+                Company = Company,
             };
         }
     }

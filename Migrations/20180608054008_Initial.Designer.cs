@@ -10,7 +10,7 @@ using System;
 namespace Distributed.Migrations
 {
     [DbContext(typeof(GamesContext))]
-    [Migration("20180601111719_Initial")]
+    [Migration("20180608054008_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -79,6 +79,9 @@ namespace Distributed.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Company")
+                        .IsRequired();
 
                     b.Property<int?>("GenreId");
 

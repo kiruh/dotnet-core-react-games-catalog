@@ -58,6 +58,7 @@ namespace Distributed.Models
                     ReleaseYear = "2018",
                     RatingId = 6,
                     GenreId = ACTION_ID,
+                    Company = "",
                 },
                 new Game
                 {
@@ -65,6 +66,7 @@ namespace Distributed.Models
                     ReleaseYear = "2007",
                     RatingId = 7,
                     GenreId = ACTION_ID,
+                    Company = "",
                 },
                 new Game
                 {
@@ -72,6 +74,7 @@ namespace Distributed.Models
                     ReleaseYear = "2009",
                     RatingId = 9,
                     GenreId = ADVENTURE_ID,
+                    Company = "",
                 },
                 new Game
                 {
@@ -79,6 +82,7 @@ namespace Distributed.Models
                     ReleaseYear = "1990",
                     RatingId = 10,
                     GenreId = ADVENTURE_ID,
+                    Company = "",
                 },
                 new Game
                 {
@@ -86,6 +90,7 @@ namespace Distributed.Models
                     ReleaseYear = "2011",
                     RatingId = 9,
                     GenreId = RPG_ID,
+                    Company = "",
                 },
                 new Game
                 {
@@ -93,6 +98,7 @@ namespace Distributed.Models
                     ReleaseYear = "2011",
                     RatingId = 9,
                     GenreId = RPG_ID,
+                    Company = "",
                 },
                 new Game
                 {
@@ -100,6 +106,7 @@ namespace Distributed.Models
                     ReleaseYear = "1997",
                     RatingId = 6,
                     GenreId = STRATEGY_ID,
+                    Company = "",
                 },
                 new Game
                 {
@@ -107,6 +114,7 @@ namespace Distributed.Models
                     ReleaseYear = "2014",
                     RatingId = 8,
                     GenreId = SIMULATION_ID,
+                    Company = "",
                 },
                 new Game
                 {
@@ -114,6 +122,7 @@ namespace Distributed.Models
                     ReleaseYear = "2017",
                     RatingId = 9,
                     GenreId = SPORTS_ID,
+                    Company = "",
                 },
                 new Game
                 {
@@ -121,6 +130,7 @@ namespace Distributed.Models
                     ReleaseYear = "2016",
                     RatingId = 7,
                     GenreId = SPORTS_ID,
+                    Company = "",
                 },
                 new Game
                 {
@@ -128,6 +138,7 @@ namespace Distributed.Models
                     ReleaseYear = "2012",
                     RatingId = 9,
                     GenreId = SHOOTER_ID,
+                    Company = "",
                 },
                 new Game
                 {
@@ -135,6 +146,7 @@ namespace Distributed.Models
                     ReleaseYear = "2003",
                     RatingId = 9,
                     GenreId = SHOOTER_ID,
+                    Company = "",
                 },
                 new Game
                 {
@@ -142,6 +154,7 @@ namespace Distributed.Models
                     ReleaseYear = "2016",
                     RatingId = 5,
                     GenreId = STRATEGY_ID,
+                    Company = "",
                 },
                 new Game
                 {
@@ -149,6 +162,7 @@ namespace Distributed.Models
                     ReleaseYear = "2017",
                     RatingId = 4,
                     GenreId = ADVENTURE_ID,
+                    Company = "",
                 },
                 new Game
                 {
@@ -156,6 +170,7 @@ namespace Distributed.Models
                     ReleaseYear = "2017",
                     RatingId = 3,
                     GenreId = SPORTS_ID,
+                    Company = "",
                 },
                 new Game
                 {
@@ -163,6 +178,7 @@ namespace Distributed.Models
                     ReleaseYear = "2017",
                     RatingId = 2,
                     GenreId = ACTION_ID,
+                    Company = "",
                 },
                 new Game
                 {
@@ -170,6 +186,7 @@ namespace Distributed.Models
                     ReleaseYear = "2017",
                     RatingId = 1,
                     GenreId = SPORTS_ID,
+                    Company = "",
                 }
             );
             context.SaveChanges();

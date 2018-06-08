@@ -79,6 +79,9 @@ namespace Distributed.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("Company")
+                        .IsRequired();
+
                     b.Property<int?>("GenreId");
 
                     b.Property<string>("Name")

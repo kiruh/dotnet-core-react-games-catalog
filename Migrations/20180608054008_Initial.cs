@@ -189,6 +189,7 @@ namespace Distributed.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySQL:AutoIncrement", true),
+                    Company = table.Column<string>(nullable: false),
                     GenreId = table.Column<int>(nullable: true),
                     Name = table.Column<string>(maxLength: 200, nullable: false),
                     RatingId = table.Column<int>(nullable: true),
