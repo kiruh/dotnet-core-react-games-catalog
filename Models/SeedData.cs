@@ -58,15 +58,15 @@ namespace Distributed.Models
                     ReleaseYear = "2018",
                     RatingId = 6,
                     GenreId = ACTION_ID,
-                    Company = "",
+                    Company = "Ubisoft",
                 },
                 new Game
                 {
-                    Name = "Medal of Heroes",
+                    Name = "Medal of Honor: Heroes",
                     ReleaseYear = "2007",
                     RatingId = 7,
                     GenreId = ACTION_ID,
-                    Company = "",
+                    Company = "Team Fusion",
                 },
                 new Game
                 {
@@ -74,7 +74,7 @@ namespace Distributed.Models
                     ReleaseYear = "2009",
                     RatingId = 9,
                     GenreId = ADVENTURE_ID,
-                    Company = "",
+                    Company = "Mojang",
                 },
                 new Game
                 {
@@ -82,7 +82,7 @@ namespace Distributed.Models
                     ReleaseYear = "1990",
                     RatingId = 10,
                     GenreId = ADVENTURE_ID,
-                    Company = "",
+                    Company = "Lucasfilm games",
                 },
                 new Game
                 {
@@ -90,7 +90,7 @@ namespace Distributed.Models
                     ReleaseYear = "2011",
                     RatingId = 9,
                     GenreId = RPG_ID,
-                    Company = "",
+                    Company = "Bandai Games",
                 },
                 new Game
                 {
@@ -98,7 +98,7 @@ namespace Distributed.Models
                     ReleaseYear = "2011",
                     RatingId = 9,
                     GenreId = RPG_ID,
-                    Company = "",
+                    Company = "Bethesda Softworks",
                 },
                 new Game
                 {
@@ -106,7 +106,7 @@ namespace Distributed.Models
                     ReleaseYear = "1997",
                     RatingId = 6,
                     GenreId = STRATEGY_ID,
-                    Company = "",
+                    Company = "Microsoft Studios",
                 },
                 new Game
                 {
@@ -114,7 +114,7 @@ namespace Distributed.Models
                     ReleaseYear = "2014",
                     RatingId = 8,
                     GenreId = SIMULATION_ID,
-                    Company = "",
+                    Company = "Electronic Arts",
                 },
                 new Game
                 {
@@ -122,7 +122,7 @@ namespace Distributed.Models
                     ReleaseYear = "2017",
                     RatingId = 9,
                     GenreId = SPORTS_ID,
-                    Company = "",
+                    Company = "Electronic Arts",
                 },
                 new Game
                 {
@@ -130,7 +130,7 @@ namespace Distributed.Models
                     ReleaseYear = "2016",
                     RatingId = 7,
                     GenreId = SPORTS_ID,
-                    Company = "",
+                    Company = "Konami",
                 },
                 new Game
                 {
@@ -138,7 +138,7 @@ namespace Distributed.Models
                     ReleaseYear = "2012",
                     RatingId = 9,
                     GenreId = SHOOTER_ID,
-                    Company = "",
+                    Company = "Hidden Path Entertainment and Valve Corporation",
                 },
                 new Game
                 {
@@ -146,7 +146,7 @@ namespace Distributed.Models
                     ReleaseYear = "2003",
                     RatingId = 9,
                     GenreId = SHOOTER_ID,
-                    Company = "",
+                    Company = "Sledgehammer Games",
                 },
                 new Game
                 {
@@ -154,7 +154,7 @@ namespace Distributed.Models
                     ReleaseYear = "2016",
                     RatingId = 5,
                     GenreId = STRATEGY_ID,
-                    Company = "",
+                    Company = "Square Enix Montreal",
                 },
                 new Game
                 {
@@ -162,7 +162,7 @@ namespace Distributed.Models
                     ReleaseYear = "2017",
                     RatingId = 4,
                     GenreId = ADVENTURE_ID,
-                    Company = "",
+                    Company = "Activision",
                 },
                 new Game
                 {
@@ -170,7 +170,7 @@ namespace Distributed.Models
                     ReleaseYear = "2017",
                     RatingId = 3,
                     GenreId = SPORTS_ID,
-                    Company = "",
+                    Company = "Electronic Arts",
                 },
                 new Game
                 {
@@ -178,7 +178,7 @@ namespace Distributed.Models
                     ReleaseYear = "2017",
                     RatingId = 2,
                     GenreId = ACTION_ID,
-                    Company = "",
+                    Company = "Alex Rose",
                 },
                 new Game
                 {
@@ -186,7 +186,7 @@ namespace Distributed.Models
                     ReleaseYear = "2017",
                     RatingId = 1,
                     GenreId = SPORTS_ID,
-                    Company = "",
+                    Company = "Visual Concepts",
                 }
             );
             context.SaveChanges();
