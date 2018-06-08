@@ -103,6 +103,13 @@ class GameCard extends React.Component {
 		return <li className="list-group-item">{rating.value}</li>;
 	}
 
+	renderCompany() {
+		const { game } = this.props;
+		const { company } = game;
+		if (!company) return null;
+		return <li className="list-group-item">{company}</li>;
+	}
+
 	renderDate() {
 		const { game } = this.props;
 		const { releaseYear } = game;
@@ -115,6 +122,7 @@ class GameCard extends React.Component {
 			<ul className="list-group list-group-flush">
 				{this.renderGenre()}
 				{this.renderRating()}
+				{this.renderCompany()}
 			</ul>
 		);
 	}

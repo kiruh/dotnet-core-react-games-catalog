@@ -9,7 +9,7 @@ const isProd = process.env.NODE_ENV === "production";
 
 const config = {
 	entry: {
-		vector: `./src/index`,
+		games: `./src/index`,
 	},
 	output: {
 		path: path.resolve(ROOT, `../wwwroot/assets/`),

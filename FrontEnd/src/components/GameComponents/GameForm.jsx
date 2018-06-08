@@ -25,6 +25,7 @@ class GameForm extends React.Component {
 		return {
 			name: game ? game.name : "",
 			releaseYear: game ? game.releaseYear : "",
+			company: game ? game.company : "",
 			ratingId: game ? game.ratingId : null,
 			genreId: game ? game.genreId : null,
 			error: null,
@@ -47,7 +48,11 @@ class GameForm extends React.Component {
 	}
 
 	onSave() {
-		if (!this.state.name || !this.state.releaseYear) {
+		if (
+			!this.state.name ||
+			!this.state.releaseYear ||
+			!this.state.company
+		) {
 			const error = "Please fill in all fields";
 			this.setState({ error });
 			return;
@@ -58,18 +63,24 @@ class GameForm extends React.Component {
 	async saveGame() {
 		const { game } = this.props;
 		try {
-			const { name, releaseYear, ratingId, genreId } = this.state;
+			const {
+				name,
+				releaseYear,
+				ratingId,
+				genreId,
+				company,
+			} = this.state;
 			if (game) {
 				const { id } = game;
 				await axios.put(
 					`/api/games/${id}`,
-					{ name, releaseYear, ratingId, genreId },
+					{ name, releaseYear, ratingId, genreId, company },
 					{ headers: getHeaders() },
 				);
 			} else {
 				await axios.post(
 					"/api/games/",
-					{ name, releaseYear, ratingId, genreId },
+					{ name, releaseYear, ratingId, genreId, company },
 					{ headers: getHeaders() },
 				);
 			}
@@ -80,6 +91,7 @@ class GameForm extends React.Component {
 					this.setState({
 						name: "",
 						releaseYear: "",
+						company: "",
 						error: null,
 					});
 				}
@@ -117,6 +129,21 @@ class GameForm extends React.Component {
 					value={this.state.releaseYear}
 					onChange={event => {
 						this.onChangeInput(event.target.value, "releaseYear");
+					}}
+				/>
+			</div>
+		);
+	}
+
+	renderCompanyInput() {
+		return (
+			<div className="form-group">
+				<input
+					className="form-control bg-secondary text-white"
+					placeholder="Company"
+					value={this.state.company}
+					onChange={event => {
+						this.onChangeInput(event.target.value, "company");
 					}}
 				/>
 			</div>
@@ -173,6 +200,7 @@ class GameForm extends React.Component {
 					<div className="card-header">{this.renderValueInput()}</div>
 					<div className="card-body">
 						{this.renderDescriptionInput()}
+						{this.renderCompanyInput()}
 						{this.renderGenreSelect()}
 						{this.renderRatingSelect()}
 						{this.renderError()}
