@@ -1,3 +1,11 @@
+# ASP.NET Core & React Games Catalog
+
+This project was created as a homework at Plovdiv University.
+
+Backend is implemented with ASP.NET; Frontend is implemented with React.
+
+In application users can view new games. Administrators can manage content.
+
 ## Install locally
 
 `git clone git@github.com:kiruh/games.git && cd games`
